@@ -6,11 +6,23 @@ import java.util.*;
 public class Solution {
     private static final String fileName = "C:\\Users\\kirti\\IdeaProjects\\sber_hw\\src\\com\\company\\input.txt";
     private static String inputData = "";
-
     private static int sumCost100 = 0;
     private static int sumCost200 = 0;
     private static int sumCost300 = 0;
     private static int sumCost400 = 0;
+    private static final Map<String, Double> mapFuelCost = new HashMap<>();
+    private static final Map<String, Double> mapFuelConsumption = new HashMap<>();
+
+    static {
+        mapFuelCost.put("100", 46.10);
+        mapFuelCost.put("200", 48.90);
+        mapFuelCost.put("300", 47.50);
+        mapFuelCost.put("400", 48.90);
+        mapFuelConsumption.put("100", 12.5);
+        mapFuelConsumption.put("200", 12.0);
+        mapFuelConsumption.put("300", 11.5);
+        mapFuelConsumption.put("400", 20.0);
+    }
 
     static {
         try (BufferedReader reader = new BufferedReader(new FileReader(new File(fileName)))) {
@@ -25,10 +37,10 @@ public class Solution {
         List<Integer[]> infoList = parseInput(inputData);
         countTotalCost(infoList);
 
-        //infoList = sortArrayDesc(infoList, 4);
+        infoList = sortArrayDesc(infoList, 4);
         //printArray(infoList);
 
-        printCertainTypeEl(infoList, 100, 0);
+        //printCertainTypeEl(infoList, 100, 0);
     }
 
     private static List<Integer[]> parseInput(String inputData) {
@@ -153,10 +165,10 @@ public class Solution {
 
     private static double getServiceCost(Integer[] el) {
         return switch (el[0]) {
-            case 100 -> el[2] * 46.10 * 12.5 / 100;
-            case 200 -> el[2] * 48.90 * 12 / 100;
-            case 300 -> el[2] * 47.50 * 11.5 / 100;
-            default -> el[2] * 48.90 * 20 / 100;
+            case 100 -> el[2] * mapFuelCost.get("100") * mapFuelConsumption.get("100") / 100;
+            case 200 -> el[2] * mapFuelCost.get("200") * mapFuelConsumption.get("200") / 100;
+            case 300 -> el[2] * mapFuelCost.get("300") * mapFuelConsumption.get("300") / 100;
+            default -> el[2] * mapFuelCost.get("400") * mapFuelConsumption.get("400") / 100;
         };
     }
 
