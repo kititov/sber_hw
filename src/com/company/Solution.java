@@ -1,10 +1,7 @@
 package com.company;
 
 import java.io.*;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Comparator;
-import java.util.List;
+import java.util.*;
 
 public class Solution {
     private static final String fileName = "C:\\Users\\kirti\\IdeaProjects\\sber_hw\\src\\com\\company\\input.txt";
@@ -28,8 +25,10 @@ public class Solution {
         List<Integer[]> infoList = parseInput(inputData);
         countTotalCost(infoList);
 
-        infoList = sortArrayDesc(infoList, 4);
-        printArray(infoList);
+        //infoList = sortArrayDesc(infoList, 4);
+        //printArray(infoList);
+
+        printCertainTypeEl(infoList, 100, 0);
     }
 
     private static List<Integer[]> parseInput(String inputData) {
@@ -159,6 +158,19 @@ public class Solution {
             case 300 -> el[2] * 47.50 * 11.5 / 100;
             default -> el[2] * 48.90 * 20 / 100;
         };
+    }
+
+    // реализовать функции, которые в разрезе каждого типа авто выводят информацию о каждом авто
+    // (тип, номер, пробег, доп. параметр), с сортировкой по пробегу и доп параметру
+    // sortType = 0 - пробег
+    // sortType = 1 - доп. параметр
+    private static void printCertainTypeEl(List<Integer[]> list, int elType, int sortType) {
+        list.removeIf(el -> el[0] != elType);
+        if (sortType == 0)
+            sortArrayAsc(list, 3);
+        else if (sortType == 1)
+            sortArrayAsc(list, 4);
+        printArray(list);
     }
 
 }
